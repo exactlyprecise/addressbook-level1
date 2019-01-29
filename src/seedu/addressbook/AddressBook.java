@@ -1048,8 +1048,20 @@ public class AddressBook {
      * @param name to be validated
      */
     private static boolean isPersonNameValid(String name) {
-        return name.matches("(\\w|\\s)+");  // name is nonempty mixture of alphabets and whitespace
         //TODO: implement a more permissive validation
+        int hardCharacterCount = 0;
+        for (int i = 0; i < name.length(); i++) {
+            if (((int) name.charAt(i) < 123 && (int) name.charAt(i) > 96) ||
+                    ((int) name.charAt(i) > 64 && (int) name.charAt(i) < 91)) {
+                hardCharacterCount++;
+                } else if (name.charAt(i) != ' ' && name.charAt(i) != '\n') {
+                    return false;
+            }
+        }
+        if (hardCharacterCount == 0) {
+            return false;
+        }
+        return true;
     }
 
     /**
